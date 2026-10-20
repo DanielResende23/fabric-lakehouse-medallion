@@ -1,0 +1,24 @@
+/// Vendas e perdas do e-commerce Olist (2016-2018, valores em BRL). Perdas = pedidos cancelados ou indisponíveis e entregas atrasadas, com impacto na avaliação do cliente.
+model Model
+	culture: pt-BR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: pt-BR
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table Calendário
+ref table Cliente
+ref table Vendedor
+ref table Produto
+ref table 'Status do Pedido'
+ref table 'Forma de Pagamento'
+ref table Vendas
+ref table Pedidos
+ref table Pagamentos
+
+ref cultureInfo en-US
+

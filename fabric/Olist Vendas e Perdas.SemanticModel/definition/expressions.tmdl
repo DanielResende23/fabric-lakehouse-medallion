@@ -1,0 +1,7 @@
+/// Direct Lake on OneLake: endereço do lh_gold. Os IDs abaixo são de exemplo; o notebook nb_gold_refresh_semantic_model reaponta para o lh_gold do workspace em que o modelo está (DEV, TST ou PRD).
+expression OneLake_Gold =
+		let
+		    Fonte = AzureStorage.DataLake("https://onelake.dfs.fabric.microsoft.com/00000000-0000-0000-0000-000000000000/00000000-0000-0000-0000-000000000000", [HierarchicalNavigation = true])
+		in
+		    Fonte
+

@@ -1,0 +1,292 @@
+/// Uma linha por pedido (snapshot acumulado do ciclo: compra, aprovação, entrega, avaliação). Base dos KPIs de pedidos, prazo, atraso e satisfação. Não é filtrada por Vendedor nem por Produto (um pedido pode ter vários); para essas análises use as medidas da tabela Vendas.
+table Pedidos
+
+	/// Quantidade de pedidos, todos os status.
+	measure 'Qtd Pedidos' = COUNTROWS ( Pedidos )
+		formatString: #,0
+		displayFolder: 01 Base\Pedidos
+
+	/// Quantidade de clientes únicos (pessoas) com pedido no contexto, pelo 'Código Único do Cliente'.
+	measure 'Qtd Clientes' = COUNTROWS ( SUMMARIZE ( Pedidos, Cliente[Código Único do Cliente] ) )
+		formatString: #,0
+		displayFolder: 01 Base\Pedidos
+
+	/// Pedidos com status Entregue e data de entrega registrada.
+	measure 'Pedidos Entregues' =
+			CALCULATE (
+			    [Qtd Pedidos],
+			    KEEPFILTERS ( Pedidos[Entregue] = TRUE () )
+			)
+		formatString: #,0
+		displayFolder: 01 Base\Pedidos
+
+	/// Pedidos perdidos: status Cancelado ou Indisponível.
+	measure 'Pedidos Perdidos' =
+			CALCULATE (
+			    [Qtd Pedidos],
+			    KEEPFILTERS ( Pedidos[Pedido Perdido] = TRUE () )
+			)
+		formatString: #,0
+		displayFolder: 01 Base\Perdas
+
+	/// Pedidos entregues depois da data prevista informada ao cliente na compra.
+	measure 'Pedidos Atrasados' =
+			CALCULATE (
+			    [Qtd Pedidos],
+			    KEEPFILTERS ( Pedidos[Entrega Atrasada] = TRUE () )
+			)
+		formatString: #,0
+		displayFolder: 01 Base\Perdas
+
+	/// Média de dias entre a data prevista e a data real de entrega, só nos pedidos atrasados.
+	measure 'Atraso Médio (dias)' =
+			CALCULATE (
+			    AVERAGE ( Pedidos[Dias de Atraso] ),
+			    KEEPFILTERS ( Pedidos[Entrega Atrasada] = TRUE () )
+			)
+		formatString: #,0.0
+		displayFolder: 01 Base\Perdas
+
+	/// Média de dias corridos entre a compra e a entrega ao cliente, nos pedidos entregues.
+	measure 'Prazo Médio de Entrega (dias)' = AVERAGE ( Pedidos[Dias até a Entrega] )
+		formatString: #,0.0
+		displayFolder: 01 Base\Experiência
+
+	/// Nota média das avaliações dos clientes (1 a 5), uma avaliação por pedido.
+	measure 'Nota Média de Avaliação' = AVERAGE ( Pedidos[Nota da Avaliação] )
+		formatString: 0.00
+		displayFolder: 01 Base\Experiência
+
+	/// Nota média dos pedidos entregues no prazo. Compare com 'Nota Média - Entrega Atrasada' para medir o efeito do atraso na satisfação.
+	measure 'Nota Média - Entrega no Prazo' =
+			CALCULATE (
+			    [Nota Média de Avaliação],
+			    KEEPFILTERS ( Pedidos[Entregue] = TRUE () ),
+			    KEEPFILTERS ( Pedidos[Entrega Atrasada] = FALSE () )
+			)
+		formatString: 0.00
+		displayFolder: 01 Base\Experiência
+
+	/// Nota média dos pedidos entregues com atraso.
+	measure 'Nota Média - Entrega Atrasada' =
+			CALCULATE (
+			    [Nota Média de Avaliação],
+			    KEEPFILTERS ( Pedidos[Entrega Atrasada] = TRUE () )
+			)
+		formatString: 0.00
+		displayFolder: 01 Base\Experiência
+
+	/// Pedidos que receberam avaliação do cliente.
+	measure 'Pedidos Avaliados' =
+			CALCULATE (
+			    [Qtd Pedidos],
+			    KEEPFILTERS ( Pedidos[Avaliado] = TRUE () )
+			)
+		formatString: #,0
+		displayFolder: 01 Base\Experiência
+
+	/// Pedidos com avaliação negativa (nota 1 ou 2).
+	measure 'Avaliações Negativas' =
+			CALCULATE (
+			    [Qtd Pedidos],
+			    KEEPFILTERS ( Pedidos[Avaliação Negativa] = TRUE () )
+			)
+		formatString: #,0
+		displayFolder: 01 Base\Experiência
+
+	/// Parcela dos pedidos que foi perdida (cancelados ou indisponíveis).
+	measure '% Pedidos Perdidos' = DIVIDE ( [Pedidos Perdidos], [Qtd Pedidos] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 04 Percentuais
+
+	/// Entre os pedidos entregues, a parcela entregue depois da data prevista. Principal KPI de nível de serviço.
+	measure '% Pedidos Atrasados' = DIVIDE ( [Pedidos Atrasados], [Pedidos Entregues] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 04 Percentuais
+
+	/// Entre os pedidos avaliados, a parcela com nota 1 ou 2.
+	measure '% Avaliações Negativas' = DIVIDE ( [Avaliações Negativas], [Pedidos Avaliados] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 04 Percentuais
+
+	/// Quantidade de pedidos no mesmo período do ano anterior, pela data da compra.
+	measure 'Qtd Pedidos AA' =
+			CALCULATE (
+			    [Qtd Pedidos],
+			    SAMEPERIODLASTYEAR ( 'Calendário'[Data] )
+			)
+		formatString: #,0
+		displayFolder: 02 Tempo
+
+	/// Variação percentual da quantidade de pedidos contra o ano anterior.
+	measure 'Qtd Pedidos Δ% AA' =
+			VAR PedidosAtual = [Qtd Pedidos]
+			VAR PedidosAA = [Qtd Pedidos AA]
+			RETURN
+			    IF ( NOT ISBLANK ( PedidosAtual ) && NOT ISBLANK ( PedidosAA ), DIVIDE ( PedidosAtual - PedidosAA, PedidosAA ) )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: 02 Tempo
+
+	/// Pedidos entregues contados pela data da entrega ao cliente (não pela data da compra). Use para volume de entregas por dia ou mês.
+	measure 'Pedidos Entregues por Data de Entrega' =
+			CALCULATE (
+			    [Pedidos Entregues],
+			    USERELATIONSHIP ( Pedidos[delivered_date_key], 'Calendário'[date_key] )
+			)
+		formatString: #,0
+		displayFolder: 02 Tempo
+
+	/// Código do pedido (dimensão degenerada).
+	column 'Código do Pedido'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: order_id
+
+	column customer_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: customer_key
+
+	column order_status_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: order_status_key
+
+	column purchase_date_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: purchase_date_key
+
+	column approved_date_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: approved_date_key
+
+	column delivered_date_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: delivered_date_key
+
+	column estimated_delivery_date_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: estimated_delivery_date_key
+
+	column review_date_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: review_date_key
+
+	column 'Qtd Itens do Pedido'
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: item_count
+
+	column 'Valor dos Itens'
+		dataType: decimal
+		isHidden
+		formatString: \R$ #,0.00;-\R$ #,0.00;\R$ 0.00
+		summarizeBy: none
+		sourceColumn: items_amount
+
+	column 'Valor do Frete do Pedido'
+		dataType: decimal
+		isHidden
+		formatString: \R$ #,0.00;-\R$ #,0.00;\R$ 0.00
+		summarizeBy: none
+		sourceColumn: freight_amount
+
+	column 'Valor do Pedido'
+		dataType: decimal
+		isHidden
+		formatString: \R$ #,0.00;-\R$ #,0.00;\R$ 0.00
+		summarizeBy: none
+		sourceColumn: order_amount
+
+	column 'Valor Pago no Pedido'
+		dataType: decimal
+		isHidden
+		formatString: \R$ #,0.00;-\R$ #,0.00;\R$ 0.00
+		summarizeBy: none
+		sourceColumn: payment_amount
+
+	column 'Dias até a Entrega'
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: delivery_days
+
+	column 'Dias de Atraso'
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: delay_days
+
+	column Entregue
+		dataType: boolean
+		isHidden
+		summarizeBy: none
+		sourceColumn: is_delivered
+
+	column 'Entrega Atrasada'
+		dataType: boolean
+		isHidden
+		summarizeBy: none
+		sourceColumn: is_late
+
+	column 'Pedido Perdido'
+		dataType: boolean
+		isHidden
+		summarizeBy: none
+		sourceColumn: is_lost
+
+	/// Nota dada pelo cliente na avaliação do pedido, de 1 (pior) a 5 (melhor). Vazio quando o pedido não foi avaliado. Use como eixo para ver a distribuição das notas.
+	column 'Nota da Avaliação'
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: review_score
+
+	column Avaliado
+		dataType: boolean
+		isHidden
+		summarizeBy: none
+		sourceColumn: has_review
+
+	column 'Avaliação com Comentário'
+		dataType: boolean
+		isHidden
+		summarizeBy: none
+		sourceColumn: has_review_comment
+
+	column 'Avaliação Negativa'
+		dataType: boolean
+		isHidden
+		summarizeBy: none
+		sourceColumn: is_negative_review
+
+	partition Pedidos = entity
+		mode: directLake
+		source
+			entityName: fact_order
+			schemaName: commercial
+			expressionSource: OneLake_Gold
+

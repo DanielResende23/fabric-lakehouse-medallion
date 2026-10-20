@@ -1,0 +1,105 @@
+cultureInfo en-US
+
+	translations
+		model Model
+			table Calendário
+				translatedCaption: Calendar
+			table Cliente
+				translatedCaption: Customer
+			table Vendedor
+				translatedCaption: Seller
+			table Produto
+				translatedCaption: Product
+			table 'Status do Pedido'
+				translatedCaption: Order Status
+			table 'Forma de Pagamento'
+				translatedCaption: Payment Type
+			table Vendas
+				translatedCaption: Sales
+				measure 'Receita Bruta'
+					translatedCaption: Gross Revenue
+					translatedDescription: Product value plus freight for all order items, in BRL, regardless of order status (GMV).
+				measure 'Receita de Produtos'
+					translatedCaption: Product Revenue
+				measure 'Receita de Frete'
+					translatedCaption: Freight Revenue
+				measure 'Receita Realizada'
+					translatedCaption: Realized Revenue
+					translatedDescription: Gross Revenue excluding lost orders (canceled or unavailable), in BRL.
+				measure 'Qtd Itens Vendidos'
+					translatedCaption: Items Sold
+				measure 'Ticket Médio'
+					translatedCaption: Average Order Value
+				measure 'Receita Perdida'
+					translatedCaption: Lost Revenue
+					translatedDescription: Gross Revenue of lost orders (canceled or unavailable), in BRL. Main loss KPI.
+				measure 'Receita com Entrega Atrasada'
+					translatedCaption: Late Delivery Revenue
+				measure '% Receita Perdida'
+					translatedCaption: % Lost Revenue
+				measure '% Frete sobre Produtos'
+					translatedCaption: % Freight over Product
+				measure '% Itens Atrasados'
+					translatedCaption: % Late Items
+				measure 'Receita Bruta AA'
+					translatedCaption: Gross Revenue PY
+				measure 'Receita Bruta Δ% AA'
+					translatedCaption: Gross Revenue Δ% PY
+				measure 'Receita Bruta MA'
+					translatedCaption: Gross Revenue PM
+				measure 'Receita Bruta Δ% MA'
+					translatedCaption: Gross Revenue Δ% PM
+				measure 'Receita Bruta YTD'
+					translatedCaption: Gross Revenue YTD
+				measure 'Receita Perdida AA'
+					translatedCaption: Lost Revenue PY
+			table Pedidos
+				translatedCaption: Orders
+				measure 'Qtd Pedidos'
+					translatedCaption: Orders Count
+				measure 'Qtd Clientes'
+					translatedCaption: Unique Customers
+				measure 'Pedidos Entregues'
+					translatedCaption: Delivered Orders
+				measure 'Pedidos Perdidos'
+					translatedCaption: Lost Orders
+				measure 'Pedidos Atrasados'
+					translatedCaption: Late Orders
+				measure 'Atraso Médio (dias)'
+					translatedCaption: Average Delay (days)
+				measure 'Prazo Médio de Entrega (dias)'
+					translatedCaption: Average Delivery Time (days)
+				measure 'Nota Média de Avaliação'
+					translatedCaption: Average Review Score
+				measure 'Nota Média - Entrega no Prazo'
+					translatedCaption: Average Review Score - On Time
+				measure 'Nota Média - Entrega Atrasada'
+					translatedCaption: Average Review Score - Late
+				measure 'Pedidos Avaliados'
+					translatedCaption: Reviewed Orders
+				measure 'Avaliações Negativas'
+					translatedCaption: Negative Reviews
+				measure '% Pedidos Perdidos'
+					translatedCaption: % Lost Orders
+				measure '% Pedidos Atrasados'
+					translatedCaption: % Late Orders
+					translatedDescription: Share of delivered orders that arrived after the estimated delivery date. Main service level KPI.
+				measure '% Avaliações Negativas'
+					translatedCaption: % Negative Reviews
+				measure 'Qtd Pedidos AA'
+					translatedCaption: Orders Count PY
+				measure 'Qtd Pedidos Δ% AA'
+					translatedCaption: Orders Count Δ% PY
+				measure 'Pedidos Entregues por Data de Entrega'
+					translatedCaption: Delivered Orders by Delivery Date
+			table Pagamentos
+				translatedCaption: Payments
+				measure 'Valor Pago'
+					translatedCaption: Amount Paid
+				measure 'Qtd Pagamentos'
+					translatedCaption: Payments Count
+				measure 'Parcelas Médias'
+					translatedCaption: Average Installments
+				measure '% Pago com Cartão de Crédito'
+					translatedCaption: % Paid by Credit Card
+

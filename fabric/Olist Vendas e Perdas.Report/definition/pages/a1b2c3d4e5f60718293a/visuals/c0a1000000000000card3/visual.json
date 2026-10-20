@@ -1,0 +1,22 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "c0a1000000000000card3",
+  "position": { "x": 520, "y": 16, "z": 3000, "width": 236, "height": 110, "tabOrder": 3000 },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "Vendas" } }, "Property": "% Receita Perdida" } },
+              "queryRef": "Vendas.% Receita Perdida",
+              "nativeQueryRef": "% Receita Perdida"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

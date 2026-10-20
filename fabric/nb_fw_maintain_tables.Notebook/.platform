@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "nb_fw_maintain_tables",
+    "description": "Manutenção Delta: OPTIMIZE com V-Order e VACUUM nas tabelas Silver e Gold."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "9c59e9d6-d28f-4e1b-98c4-be0127d14581"
+  }
+}

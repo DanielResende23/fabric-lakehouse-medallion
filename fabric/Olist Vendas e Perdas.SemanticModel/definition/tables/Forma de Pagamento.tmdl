@@ -1,0 +1,37 @@
+/// Meio de pagamento usado em cada pagamento do pedido. Um pedido pode ter mais de um pagamento (ex.: cartão + voucher).
+table 'Forma de Pagamento'
+
+	column payment_type_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: payment_type_key
+
+	column payment_type_code
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: payment_type_code
+
+	/// Cartão de crédito, Boleto, Voucher, Cartão de débito ou Não definido.
+	column 'Forma de Pagamento'
+		dataType: string
+		summarizeBy: none
+		sortByColumn: 'Ordem da Forma de Pagamento'
+		sourceColumn: payment_type_name
+
+	column 'Ordem da Forma de Pagamento'
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: sort_order
+
+	partition 'Forma de Pagamento' = entity
+		mode: directLake
+		source
+			entityName: dim_payment_type
+			schemaName: commercial
+			expressionSource: OneLake_Gold
+

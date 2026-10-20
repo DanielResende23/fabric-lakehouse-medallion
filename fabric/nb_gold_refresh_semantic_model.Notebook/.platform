@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "nb_gold_refresh_semantic_model",
+    "description": "Aponta o modelo Direct Lake para o lh_gold do próprio workspace e reenquadra (framing)."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "9677a8df-3184-4246-ba52-203f89bb2be7"
+  }
+}

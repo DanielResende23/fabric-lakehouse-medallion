@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Olist Vendas e Perdas",
+    "description": "Modelo Direct Lake sobre o lh_gold: vendas, perdas (cancelamentos, indisponibilidade, atrasos) e experiência do cliente no e-commerce Olist."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "114dc775-829b-4a19-9434-a86a958be6ec"
+  }
+}

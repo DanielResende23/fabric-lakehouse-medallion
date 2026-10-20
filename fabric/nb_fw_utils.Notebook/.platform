@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "nb_fw_utils",
+    "description": "Funções compartilhadas: caminhos OneLake, escrita Delta, merge, run log e qualidade de dados."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "018258bd-b416-4ce8-bce8-e0943aa5fec7"
+  }
+}

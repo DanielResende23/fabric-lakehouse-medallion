@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Olist Vendas e Perdas",
+    "description": "Relatório fino (thin report) de uma página sobre receita perdida, atrasos e avaliação."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "9f80cf0a-790b-4e97-8536-bcbde8cbe971"
+  }
+}

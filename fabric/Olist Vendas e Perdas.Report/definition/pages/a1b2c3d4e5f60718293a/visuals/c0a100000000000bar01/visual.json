@@ -1,0 +1,50 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "c0a100000000000bar01",
+  "position": { "x": 844, "y": 142, "z": 7000, "width": 420, "height": 562, "tabOrder": 7000 },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": { "Column": { "Expression": { "SourceRef": { "Entity": "Cliente" } }, "Property": "UF do Cliente" } },
+              "queryRef": "Cliente.UF do Cliente",
+              "nativeQueryRef": "UF do Cliente",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "Pedidos" } }, "Property": "% Pedidos Atrasados" } },
+              "queryRef": "Pedidos.% Pedidos Atrasados",
+              "nativeQueryRef": "% Pedidos Atrasados"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "Pedidos" } }, "Property": "% Pedidos Atrasados" } },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": { "expr": { "Literal": { "Value": "'% de pedidos atrasados por UF do cliente'" } } }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

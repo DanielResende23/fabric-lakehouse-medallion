@@ -1,0 +1,89 @@
+/// Uma linha por pagamento do pedido (grão: pedido + sequência do pagamento), em BRL. Um pedido pode ser pago com mais de uma forma de pagamento.
+table Pagamentos
+
+	/// Soma dos valores pagos pelos clientes, em BRL, todos os status. Inclui juros de parcelamento, por isso pode diferir da Receita Bruta.
+	measure 'Valor Pago' = SUM ( Pagamentos[Valor do Pagamento] )
+		formatString: \R$ #,0.00;-\R$ #,0.00;\R$ 0.00
+		displayFolder: 01 Base\Pagamentos
+
+	/// Quantidade de pagamentos registrados (um pedido pode ter vários).
+	measure 'Qtd Pagamentos' = COUNTROWS ( Pagamentos )
+		formatString: #,0
+		displayFolder: 01 Base\Pagamentos
+
+	/// Média do número de parcelas por pagamento. Boleto, voucher e débito contam como 1 parcela.
+	measure 'Parcelas Médias' = AVERAGE ( Pagamentos[Parcelas] )
+		formatString: #,0.0
+		displayFolder: 01 Base\Pagamentos
+
+	/// Parcela do Valor Pago feita com cartão de crédito.
+	measure '% Pago com Cartão de Crédito' =
+			DIVIDE (
+			    CALCULATE ( [Valor Pago], KEEPFILTERS ( 'Forma de Pagamento'[payment_type_code] = "credit_card" ) ),
+			    [Valor Pago]
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 04 Percentuais
+
+	column order_id
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: order_id
+
+	column 'Sequência do Pagamento'
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: payment_sequential
+
+	column customer_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: customer_key
+
+	column order_status_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: order_status_key
+
+	column payment_type_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: payment_type_key
+
+	column purchase_date_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: purchase_date_key
+
+	column Parcelas
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: installment_count
+
+	column 'Valor do Pagamento'
+		dataType: decimal
+		isHidden
+		formatString: \R$ #,0.00;-\R$ #,0.00;\R$ 0.00
+		summarizeBy: none
+		sourceColumn: payment_amount
+
+	partition Pagamentos = entity
+		mode: directLake
+		source
+			entityName: fact_payment
+			schemaName: commercial
+			expressionSource: OneLake_Gold
+

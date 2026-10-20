@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "nb_silver_load_commercial",
+    "description": "Limpeza, tipagem, deduplicação e regras de qualidade para lh_silver.commercial."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "e15a5d57-c860-4b22-a623-f1be149978aa"
+  }
+}

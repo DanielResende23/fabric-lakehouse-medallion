@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Lakehouse",
+    "displayName": "lh_silver",
+    "description": "Silver: entidades limpas e tipadas, run log e resultados de qualidade."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "be1917d7-f525-4b74-97f5-5c3dd14c208e"
+  }
+}

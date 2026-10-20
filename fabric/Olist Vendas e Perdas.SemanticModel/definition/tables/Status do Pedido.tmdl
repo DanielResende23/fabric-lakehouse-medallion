@@ -1,0 +1,43 @@
+/// Situação do pedido no momento da extração. O 'Grupo do Status' resume a situação em Concluído (entregue), Em andamento (criado, aprovado, faturado, em separação, enviado) e Perdido (cancelado ou indisponível).
+table 'Status do Pedido'
+
+	column order_status_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: order_status_key
+
+	column order_status_code
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: order_status_code
+
+	/// Situação do pedido: Criado, Aprovado, Faturado, Em separação, Enviado, Entregue, Cancelado ou Indisponível.
+	column 'Status do Pedido'
+		dataType: string
+		summarizeBy: none
+		sortByColumn: 'Ordem do Status'
+		sourceColumn: order_status_name
+
+	/// Agrupamento do status: Concluído, Em andamento ou Perdido. "Perdido" é a base das medidas de perda (receita e pedidos perdidos).
+	column 'Grupo do Status'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: status_group_name
+
+	column 'Ordem do Status'
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: sort_order
+
+	partition 'Status do Pedido' = entity
+		mode: directLake
+		source
+			entityName: dim_order_status
+			schemaName: commercial
+			expressionSource: OneLake_Gold
+

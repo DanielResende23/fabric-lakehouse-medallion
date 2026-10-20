@@ -1,0 +1,220 @@
+/// Uma linha por item de pedido (grão: pedido + número do item), com valor do produto e do frete em BRL. Inclui todos os status; as medidas de perda filtram pedidos cancelados ou indisponíveis. Única tabela filtrada por Vendedor e Produto.
+table Vendas
+
+	/// Soma do valor dos produtos e do frete de todos os itens, em BRL, qualquer que seja o status do pedido. Medida padrão para "vendas", "faturamento bruto" ou "GMV".
+	measure 'Receita Bruta' = SUM ( Vendas[Valor Bruto] )
+		formatString: \R$ #,0.00;-\R$ #,0.00;\R$ 0.00
+		displayFolder: 01 Base\Vendas
+
+	/// Soma do valor dos produtos (sem frete), em BRL, todos os status.
+	measure 'Receita de Produtos' = SUM ( Vendas[Valor do Item] )
+		formatString: \R$ #,0.00;-\R$ #,0.00;\R$ 0.00
+		displayFolder: 01 Base\Vendas
+
+	/// Soma do frete cobrado do cliente, em BRL, todos os status.
+	measure 'Receita de Frete' = SUM ( Vendas[Valor do Frete] )
+		formatString: \R$ #,0.00;-\R$ #,0.00;\R$ 0.00
+		displayFolder: 01 Base\Vendas
+
+	/// Receita Bruta sem os pedidos perdidos (cancelados ou indisponíveis), em BRL. É a receita que de fato se converteu ou ainda pode se converter.
+	measure 'Receita Realizada' =
+			CALCULATE (
+			    [Receita Bruta],
+			    KEEPFILTERS ( Vendas[Pedido Perdido] = FALSE () )
+			)
+		formatString: \R$ #,0.00;-\R$ #,0.00;\R$ 0.00
+		displayFolder: 01 Base\Vendas
+
+	/// Quantidade de itens vendidos (linhas de item de pedido), todos os status.
+	measure 'Qtd Itens Vendidos' = COUNTROWS ( Vendas )
+		formatString: #,0
+		displayFolder: 01 Base\Vendas
+
+	/// Receita Bruta média por pedido, em BRL. Respeita filtros de vendedor e produto (conta só os pedidos que têm itens no filtro).
+	measure 'Ticket Médio' = DIVIDE ( [Receita Bruta], DISTINCTCOUNT ( Vendas[Código do Pedido] ) )
+		formatString: \R$ #,0.00;-\R$ #,0.00;\R$ 0.00
+		displayFolder: 01 Base\Vendas
+
+	/// Receita Bruta dos pedidos perdidos: status Cancelado ou Indisponível, em BRL. Principal KPI de perda.
+	measure 'Receita Perdida' =
+			CALCULATE (
+			    [Receita Bruta],
+			    KEEPFILTERS ( Vendas[Pedido Perdido] = TRUE () )
+			)
+		formatString: \R$ #,0.00;-\R$ #,0.00;\R$ 0.00
+		displayFolder: 01 Base\Perdas
+
+	/// Receita Bruta dos itens entregues depois da data prevista, em BRL. Mede receita exposta a insatisfação e recompra menor.
+	measure 'Receita com Entrega Atrasada' =
+			CALCULATE (
+			    [Receita Bruta],
+			    KEEPFILTERS ( Vendas[Entrega Atrasada] = TRUE () )
+			)
+		formatString: \R$ #,0.00;-\R$ #,0.00;\R$ 0.00
+		displayFolder: 01 Base\Perdas
+
+	/// Parcela da Receita Bruta que foi perdida (cancelados ou indisponíveis).
+	measure '% Receita Perdida' = DIVIDE ( [Receita Perdida], [Receita Bruta] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 04 Percentuais
+
+	/// Frete como proporção do valor dos produtos. Alto em regiões distantes e categorias pesadas.
+	measure '% Frete sobre Produtos' = DIVIDE ( [Receita de Frete], [Receita de Produtos] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 04 Percentuais
+
+	/// Entre os itens entregues, a parcela entregue depois da data prevista. Versão por item de '% Pedidos Atrasados', que permite analisar por vendedor e categoria.
+	measure '% Itens Atrasados' =
+			VAR ItensEntregues =
+			    CALCULATE ( COUNTROWS ( Vendas ), KEEPFILTERS ( Vendas[Entregue] = TRUE () ) )
+			VAR ItensAtrasados =
+			    CALCULATE ( COUNTROWS ( Vendas ), KEEPFILTERS ( Vendas[Entrega Atrasada] = TRUE () ) )
+			RETURN
+			    DIVIDE ( ItensAtrasados, ItensEntregues )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 04 Percentuais
+
+	/// Receita Bruta no mesmo período do ano anterior, pelo calendário civil e pela data da compra.
+	measure 'Receita Bruta AA' =
+			CALCULATE (
+			    [Receita Bruta],
+			    SAMEPERIODLASTYEAR ( 'Calendário'[Data] )
+			)
+		formatString: \R$ #,0.00;-\R$ #,0.00;\R$ 0.00
+		displayFolder: 02 Tempo
+
+	/// Variação percentual da Receita Bruta contra o ano anterior. Vazio quando não há receita no ano anterior (o dataset começa em set/2016).
+	measure 'Receita Bruta Δ% AA' =
+			VAR ReceitaAtual = [Receita Bruta]
+			VAR ReceitaAA = [Receita Bruta AA]
+			RETURN
+			    IF ( NOT ISBLANK ( ReceitaAtual ) && NOT ISBLANK ( ReceitaAA ), DIVIDE ( ReceitaAtual - ReceitaAA, ReceitaAA ) )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: 02 Tempo
+
+	/// Receita Bruta no mês anterior ao do contexto, pela data da compra.
+	measure 'Receita Bruta MA' =
+			CALCULATE (
+			    [Receita Bruta],
+			    DATEADD ( 'Calendário'[Data], -1, MONTH )
+			)
+		formatString: \R$ #,0.00;-\R$ #,0.00;\R$ 0.00
+		displayFolder: 02 Tempo
+
+	/// Variação percentual da Receita Bruta contra o mês anterior.
+	measure 'Receita Bruta Δ% MA' =
+			VAR ReceitaAtual = [Receita Bruta]
+			VAR ReceitaMA = [Receita Bruta MA]
+			RETURN
+			    IF ( NOT ISBLANK ( ReceitaAtual ) && NOT ISBLANK ( ReceitaMA ), DIVIDE ( ReceitaAtual - ReceitaMA, ReceitaMA ) )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: 02 Tempo
+
+	/// Receita Bruta acumulada do início do ano até a data do contexto.
+	measure 'Receita Bruta YTD' = TOTALYTD ( [Receita Bruta], 'Calendário'[Data] )
+		formatString: \R$ #,0.00;-\R$ #,0.00;\R$ 0.00
+		displayFolder: 02 Tempo
+
+	/// Receita Perdida no mesmo período do ano anterior.
+	measure 'Receita Perdida AA' =
+			CALCULATE (
+			    [Receita Perdida],
+			    SAMEPERIODLASTYEAR ( 'Calendário'[Data] )
+			)
+		formatString: \R$ #,0.00;-\R$ #,0.00;\R$ 0.00
+		displayFolder: 02 Tempo
+
+	column 'Código do Pedido'
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: order_id
+
+	column 'Número do Item'
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: order_item_number
+
+	column customer_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: customer_key
+
+	column seller_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: seller_key
+
+	column product_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: product_key
+
+	column order_status_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: order_status_key
+
+	column purchase_date_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: purchase_date_key
+
+	column 'Valor do Item'
+		dataType: decimal
+		isHidden
+		formatString: \R$ #,0.00;-\R$ #,0.00;\R$ 0.00
+		summarizeBy: none
+		sourceColumn: item_price_amount
+
+	column 'Valor do Frete'
+		dataType: decimal
+		isHidden
+		formatString: \R$ #,0.00;-\R$ #,0.00;\R$ 0.00
+		summarizeBy: none
+		sourceColumn: freight_amount
+
+	column 'Valor Bruto'
+		dataType: decimal
+		isHidden
+		formatString: \R$ #,0.00;-\R$ #,0.00;\R$ 0.00
+		summarizeBy: none
+		sourceColumn: gross_amount
+
+	column Entregue
+		dataType: boolean
+		isHidden
+		summarizeBy: none
+		sourceColumn: is_delivered
+
+	column 'Entrega Atrasada'
+		dataType: boolean
+		isHidden
+		summarizeBy: none
+		sourceColumn: is_late
+
+	column 'Pedido Perdido'
+		dataType: boolean
+		isHidden
+		summarizeBy: none
+		sourceColumn: is_lost
+
+	partition Vendas = entity
+		mode: directLake
+		source
+			entityName: fact_sales
+			schemaName: commercial
+			expressionSource: OneLake_Gold
+

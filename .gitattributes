@@ -1,0 +1,4 @@
+# TMDL, PBIR e notebooks do Fabric são texto; LF evita diffs falsos entre Windows e o Fabric
+* text=auto eol=lf
+*.png binary
+*.jpg binary

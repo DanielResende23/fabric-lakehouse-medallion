@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Lakehouse",
+    "displayName": "lh_bronze",
+    "description": "Bronze: CSVs brutos do Olist e tabelas Delta fiéis à origem."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "f48d29d4-3565-4c5e-be11-062fe7563dd2"
+  }
+}

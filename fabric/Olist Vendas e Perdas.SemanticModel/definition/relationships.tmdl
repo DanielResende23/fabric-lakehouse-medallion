@@ -1,0 +1,53 @@
+relationship 74f0eb6a-0dd6-4a08-afc2-a36b4b9b44f2
+	fromColumn: Vendas.customer_key
+	toColumn: Cliente.customer_key
+
+relationship 69562534-3197-4199-85b3-b322700f3a41
+	fromColumn: Vendas.seller_key
+	toColumn: Vendedor.seller_key
+
+relationship d04a5afa-ccaf-418d-917b-f9b970f0f6c1
+	fromColumn: Vendas.product_key
+	toColumn: Produto.product_key
+
+relationship 847b211a-8245-4665-8771-176ec1e73907
+	fromColumn: Vendas.order_status_key
+	toColumn: 'Status do Pedido'.order_status_key
+
+relationship 5f3679cd-8587-4702-975c-f293deb99564
+	fromColumn: Vendas.purchase_date_key
+	toColumn: Calendário.date_key
+
+relationship 3b0c0be9-237c-46d3-b3fa-1a92e936e6df
+	fromColumn: Pedidos.customer_key
+	toColumn: Cliente.customer_key
+
+relationship 4efd51ad-675a-438c-a21e-ae6066bd6d70
+	fromColumn: Pedidos.order_status_key
+	toColumn: 'Status do Pedido'.order_status_key
+
+relationship 8f30dfdd-144e-47b3-ad66-fd471b45f9ff
+	fromColumn: Pedidos.purchase_date_key
+	toColumn: Calendário.date_key
+
+relationship fcdd89fa-4b61-4c5d-9e54-b103a1c286e8
+	isActive: false
+	fromColumn: Pedidos.delivered_date_key
+	toColumn: Calendário.date_key
+
+relationship 873c07da-43dc-46da-a99d-6669a37c267c
+	fromColumn: Pagamentos.customer_key
+	toColumn: Cliente.customer_key
+
+relationship f2c04a51-fe9b-4aab-9431-de57adef62cc
+	fromColumn: Pagamentos.order_status_key
+	toColumn: 'Status do Pedido'.order_status_key
+
+relationship 2a5b0f32-e0d9-487c-b1c3-5a243cc39b8d
+	fromColumn: Pagamentos.payment_type_key
+	toColumn: 'Forma de Pagamento'.payment_type_key
+
+relationship d41c8424-7392-4581-871c-9e9b76af79ca
+	fromColumn: Pagamentos.purchase_date_key
+	toColumn: Calendário.date_key
+

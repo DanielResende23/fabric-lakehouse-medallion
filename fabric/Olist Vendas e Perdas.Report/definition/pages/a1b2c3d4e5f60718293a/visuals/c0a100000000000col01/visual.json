@@ -1,0 +1,36 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "c0a100000000000col01",
+  "position": { "x": 428, "y": 438, "z": 9000, "width": 400, "height": 266, "tabOrder": 9000 },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Y": {
+          "projections": [
+            {
+              "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "Pedidos" } }, "Property": "Nota Média - Entrega no Prazo" } },
+              "queryRef": "Pedidos.Nota Média - Entrega no Prazo",
+              "nativeQueryRef": "Nota Média - Entrega no Prazo"
+            },
+            {
+              "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "Pedidos" } }, "Property": "Nota Média - Entrega Atrasada" } },
+              "queryRef": "Pedidos.Nota Média - Entrega Atrasada",
+              "nativeQueryRef": "Nota Média - Entrega Atrasada"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": { "expr": { "Literal": { "Value": "'Nota média: entrega no prazo x atrasada'" } } }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

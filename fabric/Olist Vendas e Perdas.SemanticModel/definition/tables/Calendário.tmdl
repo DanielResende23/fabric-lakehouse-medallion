@@ -1,0 +1,102 @@
+/// Calendário diário contínuo, de 1º de janeiro do primeiro ano com pedidos até 31 de dezembro do último ano com entrega prevista. Usar para toda análise temporal. Por padrão filtra pela data da compra; a data de entrega só é usada pela medida 'Pedidos Entregues por Data de Entrega'.
+table Calendário
+	dataCategory: Time
+
+	column date_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: date_key
+
+	/// Dia do calendário.
+	column Data
+		dataType: dateTime
+		isKey
+		formatString: dd/MM/yyyy
+		summarizeBy: none
+		sourceColumn: date
+
+	/// Ano civil (ex.: 2018).
+	column Ano
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: year_number
+
+	/// Trimestre do ano: T1 a T4.
+	column Trimestre
+		dataType: string
+		summarizeBy: none
+		sortByColumn: 'Trimestre Número'
+		sourceColumn: quarter_name
+
+	column 'Trimestre Número'
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: quarter_number
+
+	/// Nome do mês por extenso (Janeiro a Dezembro).
+	column Mês
+		dataType: string
+		summarizeBy: none
+		sortByColumn: 'Mês Número'
+		sourceColumn: month_name
+
+	/// Nome do mês abreviado (Jan a Dez).
+	column 'Mês Abreviado'
+		dataType: string
+		summarizeBy: none
+		sortByColumn: 'Mês Número'
+		sourceColumn: month_short_name
+
+	column 'Mês Número'
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: month_number
+
+	/// Mês e ano para eixos de série temporal (ex.: jan/2018).
+	column 'Ano-Mês'
+		dataType: string
+		summarizeBy: none
+		sortByColumn: 'Ano-Mês Número'
+		sourceColumn: year_month_name
+
+	column 'Ano-Mês Número'
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: year_month_number
+
+	/// Dia da semana por extenso (Domingo a Sábado).
+	column 'Dia da Semana'
+		dataType: string
+		summarizeBy: none
+		sortByColumn: 'Dia da Semana Número'
+		sourceColumn: weekday_name
+
+	column 'Dia da Semana Número'
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: weekday_number
+
+	/// Verdadeiro para sábado e domingo.
+	column 'Fim de Semana'
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: is_weekend
+
+	partition Calendário = entity
+		mode: directLake
+		source
+			entityName: dim_date
+			schemaName: shared
+			expressionSource: OneLake_Gold
+

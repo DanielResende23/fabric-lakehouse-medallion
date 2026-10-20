@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "nb_gold_build_star_schema",
+    "description": "Dimensões e fatos do star schema em lh_gold, com chaves substitutas e testes de integridade."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "75fecdfb-3922-411c-832f-bfe2272a7a9e"
+  }
+}

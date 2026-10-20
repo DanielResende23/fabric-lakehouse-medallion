@@ -1,0 +1,73 @@
+/// Vendedor (lojista) do marketplace Olist que despachou o item. Um pedido pode ter itens de vendedores diferentes, por isso vendedor só filtra a tabela Vendas (itens).
+table Vendedor
+
+	column seller_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: seller_key
+
+	/// Identificador anonimizado do vendedor.
+	column 'Código do Vendedor'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: seller_id
+
+	/// Prefixo de 5 dígitos do CEP do vendedor.
+	column 'CEP do Vendedor'
+		dataType: string
+		dataCategory: PostalCode
+		summarizeBy: none
+		sourceColumn: zip_code_prefix
+
+	/// Cidade de onde o vendedor despacha.
+	column 'Cidade do Vendedor'
+		dataType: string
+		dataCategory: City
+		summarizeBy: none
+		sourceColumn: city_name
+
+	/// Sigla da UF do vendedor.
+	column 'UF do Vendedor'
+		dataType: string
+		dataCategory: StateOrProvince
+		summarizeBy: none
+		sourceColumn: state_code
+
+	/// Nome do estado do vendedor.
+	column 'Estado do Vendedor'
+		dataType: string
+		dataCategory: StateOrProvince
+		summarizeBy: none
+		sourceColumn: state_name
+
+	/// Região do Brasil do vendedor.
+	column 'Região do Vendedor'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: region_name
+
+	/// Latitude média do CEP do vendedor.
+	column 'Latitude do Vendedor'
+		dataType: double
+		dataCategory: Latitude
+		formatString: 0.000000
+		summarizeBy: none
+		sourceColumn: latitude
+
+	/// Longitude média do CEP do vendedor.
+	column 'Longitude do Vendedor'
+		dataType: double
+		dataCategory: Longitude
+		formatString: 0.000000
+		summarizeBy: none
+		sourceColumn: longitude
+
+	partition Vendedor = entity
+		mode: directLake
+		source
+			entityName: dim_seller
+			schemaName: commercial
+			expressionSource: OneLake_Gold
+

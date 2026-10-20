@@ -1,0 +1,15 @@
+# Power BI Desktop (PBIP)
+**/.pbi/localSettings.json
+**/.pbi/cache.abf
+*.pbix
+
+# Dados: o dataset Olist não é redistribuído aqui (licença CC BY-NC-SA 4.0)
+data/
+*.csv
+*.zip
+
+# Editores e sistema
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

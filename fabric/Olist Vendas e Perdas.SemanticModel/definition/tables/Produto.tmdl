@@ -1,0 +1,49 @@
+/// Produto vendido no marketplace, com categoria em português e em inglês. Produtos sem categoria na origem aparecem como 'Sem categoria'.
+table Produto
+
+	column product_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: product_key
+
+	/// Identificador anonimizado do produto.
+	column 'Código do Produto'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: product_id
+
+	/// Categoria do produto em português (ex.: Cama Mesa Banho, Beleza Saude). Use para "categoria", "departamento" ou "linha de produto".
+	column Categoria
+		dataType: string
+		summarizeBy: none
+		sourceColumn: category_name
+
+	/// Categoria do produto em inglês, conforme a tradução publicada com o dataset.
+	column 'Categoria em Inglês'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: category_name_en
+
+	/// Quantidade de fotos no anúncio do produto.
+	column 'Fotos do Anúncio'
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: photo_count
+
+	/// Peso do produto embalado, em gramas.
+	column 'Peso (g)'
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: weight_grams
+
+	partition Produto = entity
+		mode: directLake
+		source
+			entityName: dim_product
+			schemaName: commercial
+			expressionSource: OneLake_Gold
+

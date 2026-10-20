@@ -1,0 +1,79 @@
+/// Cliente por pedido. No Olist cada pedido gera um código de cliente próprio; a pessoa é identificada pelo 'Código Único do Cliente'. Para contar clientes use a medida 'Qtd Clientes', não a contagem de linhas desta tabela.
+table Cliente
+
+	column customer_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: customer_key
+
+	column customer_id
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: customer_id
+
+	/// Identificador anonimizado da pessoa que comprou. Um mesmo cliente único pode ter vários pedidos.
+	column 'Código Único do Cliente'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: customer_unique_id
+
+	/// Prefixo de 5 dígitos do CEP do cliente.
+	column 'CEP do Cliente'
+		dataType: string
+		dataCategory: PostalCode
+		summarizeBy: none
+		sourceColumn: zip_code_prefix
+
+	/// Cidade de entrega do cliente.
+	column 'Cidade do Cliente'
+		dataType: string
+		dataCategory: City
+		summarizeBy: none
+		sourceColumn: city_name
+
+	/// Sigla da UF do cliente (ex.: SP, RJ).
+	column 'UF do Cliente'
+		dataType: string
+		dataCategory: StateOrProvince
+		summarizeBy: none
+		sourceColumn: state_code
+
+	/// Nome do estado do cliente (ex.: São Paulo).
+	column 'Estado do Cliente'
+		dataType: string
+		dataCategory: StateOrProvince
+		summarizeBy: none
+		sourceColumn: state_name
+
+	/// Região do Brasil do cliente: Norte, Nordeste, Centro-Oeste, Sudeste ou Sul.
+	column 'Região do Cliente'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: region_name
+
+	/// Latitude média do CEP do cliente.
+	column 'Latitude do Cliente'
+		dataType: double
+		dataCategory: Latitude
+		formatString: 0.000000
+		summarizeBy: none
+		sourceColumn: latitude
+
+	/// Longitude média do CEP do cliente.
+	column 'Longitude do Cliente'
+		dataType: double
+		dataCategory: Longitude
+		formatString: 0.000000
+		summarizeBy: none
+		sourceColumn: longitude
+
+	partition Cliente = entity
+		mode: directLake
+		source
+			entityName: dim_customer
+			schemaName: commercial
+			expressionSource: OneLake_Gold
+

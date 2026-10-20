@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "nb_bronze_ingest_olist",
+    "description": "Ingestão dos CSVs do Olist para lh_bronze.olist (snapshot por lote)."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "9f96094e-f66a-4cef-8689-a969839e0bf0"
+  }
+}
