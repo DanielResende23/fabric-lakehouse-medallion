@@ -82,6 +82,22 @@ The DEV workspace is connected to this repository (folder `/fabric`) through **F
 5. Open `pl_daily_load_olist`, check each notebook activity points to the workspace notebook, and **Run**.
 6. Open the **Olist Vendas e Perdas** report, or `fabric/Olist Vendas e Perdas.pbip` in Power BI Desktop.
 
+## Screenshots
+
+First end-to-end run on a Fabric trial capacity, with the workspace connected to this repository through Git integration.
+
+**"Perdas no E-commerce" report** on the Direct Lake model: BRL 15.8M gross revenue, 0.7% lost to cancellations and unavailability, 6.8% of delivered orders late, and the average review score drops from ~4.3 (on time) to ~2.3 (late).
+
+![Report](docs/img/05-report.jpg)
+
+**`pl_daily_load_olist`**: Bronze, Silver, Gold, then model rebind and framing. The first Gold attempt hit the trial capacity's concurrent Spark session limit (HTTP 430) and the activity retry handled it.
+
+![Pipeline run](docs/img/02-pipeline-run.jpg)
+
+| Lineage | Gold lakehouse schemas | Semantic model |
+|---|---|---|
+| ![Lineage](docs/img/01-workspace-lineage.jpg) | ![lh_gold](docs/img/03-lakehouse-schemas.jpg) | ![Model](docs/img/04-semantic-model.jpg) |
+
 ## License and data
 
 Code under [MIT](LICENSE). Data is **not** included: the *Brazilian E-Commerce Public Dataset by Olist* is distributed on Kaggle under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
