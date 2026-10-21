@@ -187,16 +187,17 @@ docs/
 
 ## Screenshots
 
-As capturas ficam em [`docs/img`](docs/img) (lista do que capturar no [README da pasta](docs/img/README.md)).
+Primeira execução completa em uma capacidade Fabric trial (workspace conectado a este repositório pela Git integration).
 
-<!-- Descomente depois de capturar:
-![Lineage do workspace](docs/img/01-workspace-lineage.png)
-![Execução do pipeline](docs/img/02-pipeline-run.png)
-![Lakehouses com schemas](docs/img/03-lakehouse-schemas.png)
-![Modelo semântico](docs/img/04-semantic-model.png)
-![Relatório](docs/img/05-report.png)
-![Copilot](docs/img/06-copilot.png)
--->
+**Relatório "Perdas no E-commerce"** sobre o modelo Direct Lake: R$ 15,8 mi de receita bruta, 0,7% perdidos em cancelamentos e indisponibilidade, 6,8% dos pedidos entregues com atraso, e a nota média cai de ~4,3 (no prazo) para ~2,3 (atrasado).
+
+![Relatório](docs/img/05-report.jpg)
+
+**`pl_daily_load_olist`**: Bronze, Silver, Gold e rebind + framing do modelo. A primeira tentativa da Gold caiu por limite de sessões Spark simultâneas da capacidade trial (HTTP 430) e o retry da atividade resolveu.
+
+![Execução do pipeline](docs/img/02-pipeline-run.jpg)
+
+Outras capturas previstas estão listadas no [README da pasta](docs/img/README.md).
 
 ## Stack
 

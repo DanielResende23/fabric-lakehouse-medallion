@@ -71,15 +71,13 @@ Fluxo de trabalho:
 - [ ] Perguntas de teste do Copilot (`docs/copilot/test-questions.md`) respondidas corretamente.
 - [ ] Revisão de BPA sem achados de severidade Erro.
 
-### Pontos a confirmar na primeira execução
+### Lições da primeira execução (capacidade trial, 2026-10-20)
 
-Os artefatos foram escritos à mão e ainda não rodaram no Fabric. Conferir na primeira execução:
-
-- Tabelas gravadas por caminho em `Tables/<schema>/<tabela>` aparecem sob o schema certo (`olist`, `commercial`, `framework`, `quarantine`, `shared`). Se não aparecerem, criar os schemas antes pela interface do lakehouse.
-- Colunas `DECIMAL(18,4)` da Gold entram no modelo como Decimal fixo (o TMDL declara `dataType: decimal`).
-- `%run nb_fw_utils` funciona nos notebooks sincronizados pelo Git.
-- O modelo e o relatório abrem no Power BI Desktop sem erro de TMDL/PBIR.
-- Reexecutar só uma atividade do pipeline gera um RunId novo: a Silver para com erro claro ("lote sem linhas na Bronze"). Rode o pipeline inteiro ou informe `batch_id` vazio no notebook para usar o último lote.
+- **Configuração de tenant antes do workspace.** *Os usuários podem sincronizar itens de workspace com repositórios GitHub* vem desligada por padrão. Um workspace criado antes de ligar a opção continuou sem o provedor GitHub; recriar o workspace resolveu.
+- **O sync é atômico.** Um erro de TMDL em um item (aqui, `cultures/en-US.tmdl`) impede a criação de todos. Valide o modelo antes do push (Power BI Modeling MCP `ImportFromTmdlFolder` ou Tabular Editor).
+- **Atividades de pipeline religadas automaticamente.** As atividades de notebook passaram a apontar para os notebooks do próprio workspace, sem edição manual.
+- **Limite de Spark da capacidade (HTTP 430 `TooManyRequestsForCapacity`).** Atividades em sequência podem esbarrar na sessão anterior ainda encerrando. O `retry: 1` com 60 s das atividades absorve isso; em capacidades pequenas, considere sessões de alta simultaneidade.
+- **Reexecutar só uma atividade** gera um RunId novo: a Silver para com erro claro ("lote sem linhas na Bronze"). Rode o pipeline inteiro ou informe `batch_id` vazio no notebook para usar o último lote.
 
 ## 3. Agendamento
 
