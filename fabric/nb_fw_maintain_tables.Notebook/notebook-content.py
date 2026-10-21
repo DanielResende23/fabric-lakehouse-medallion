@@ -12,10 +12,8 @@
 # MARKDOWN ********************
 
 # # nb_fw_maintain_tables
-#
-# Manutenção semanal, fora do horário de carga. Ordem obrigatória:
-#
-# 1. `OPTIMIZE ... VORDER`: compacta arquivos pequenos e reescreve em V-Order (guardrails e leitura do Direct Lake).
+# # Manutenção semanal, fora do horário de carga. Ordem obrigatória:
+# # 1. `OPTIMIZE ... VORDER`: compacta arquivos pequenos e reescreve em V-Order (guardrails e leitura do Direct Lake).
 # 2. **Reenquadrar o modelo** para que ele passe a ler a versão compactada.
 # 3. `VACUUM`: só então remove os arquivos antigos. Fazer o VACUUM antes do framing pode apagar arquivos que o
 #    modelo ainda está usando.

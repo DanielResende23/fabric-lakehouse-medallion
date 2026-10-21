@@ -57,16 +57,16 @@ table Cliente
 	/// Latitude média do CEP do cliente.
 	column 'Latitude do Cliente'
 		dataType: double
-		dataCategory: Latitude
 		formatString: 0.000000
+		dataCategory: Latitude
 		summarizeBy: none
 		sourceColumn: latitude
 
 	/// Longitude média do CEP do cliente.
 	column 'Longitude do Cliente'
 		dataType: double
-		dataCategory: Longitude
 		formatString: 0.000000
+		dataCategory: Longitude
 		summarizeBy: none
 		sourceColumn: longitude
 

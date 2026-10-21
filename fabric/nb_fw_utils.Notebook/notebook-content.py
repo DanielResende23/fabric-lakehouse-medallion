@@ -12,10 +12,8 @@
 # MARKDOWN ********************
 
 # # nb_fw_utils
-#
-# Funções compartilhadas pelos notebooks Bronze, Silver e Gold. Carregado com `%run nb_fw_utils`.
-#
-# - **Caminhos OneLake resolvidos em tempo de execução** a partir do workspace atual: os notebooks não têm lakehouse padrão
+# # Funções compartilhadas pelos notebooks Bronze, Silver e Gold. Carregado com `%run nb_fw_utils`.
+# # - **Caminhos OneLake resolvidos em tempo de execução** a partir do workspace atual: os notebooks não têm lakehouse padrão
 #   nem GUID fixo, então o mesmo código roda em DEV, TST e PRD sem regra de deployment.
 # - **Escrita Delta** idempotente (`overwrite_table`, `upsert_table`).
 # - **Colunas técnicas `dp_`** (auditoria e linhagem até o lote).
@@ -226,11 +224,9 @@ def log_run(batch_id: str, notebook_name: str, layer_name: str, target_table: st
 # MARKDOWN ********************
 
 # ## Qualidade de dados
-#
-# Regras de linha são expressões SQL que valem `true` para a linha **válida**. `NULL` no resultado conta como válido,
+# # Regras de linha são expressões SQL que valem `true` para a linha **válida**. `NULL` no resultado conta como válido,
 # porque nulos são tratados por regras `is not null` próprias.
-#
-# | Severidade | Efeito |
+# # | Severidade | Efeito |
 # |---|---|
 # | `error` | Linha vai para `lh_silver.quarantine.<tabela>` e não segue para a Silver |
 # | `warn` | Linha segue; a contagem fica registrada em `framework.dq_result` |

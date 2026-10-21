@@ -12,10 +12,8 @@
 # MARKDOWN ********************
 
 # # nb_gold_build_star_schema
-#
-# Silver (`lh_silver.commercial.*`) → Gold (`lh_gold`), star schema para o modelo semântico em Direct Lake.
-#
-# | Tabela | Grão | Observação |
+# # Silver (`lh_silver.commercial.*`) → Gold (`lh_gold`), star schema para o modelo semântico em Direct Lake.
+# # | Tabela | Grão | Observação |
 # |---|---|---|
 # | `shared.dim_date` | 1 dia | Calendário contínuo, nomes em pt-BR, `date_key` = `yyyyMMdd` |
 # | `commercial.dim_customer` | 1 `customer_id` | Inclui `customer_unique_id` (a pessoa), UF, região e coordenadas |
@@ -26,8 +24,7 @@
 # | `commercial.fact_sales` | 1 item de pedido | Receita de produto e frete; vendedor e produto |
 # | `commercial.fact_order` | 1 pedido | Snapshot acumulado: datas do ciclo, prazo, atraso, avaliação |
 # | `commercial.fact_payment` | 1 pagamento do pedido | Forma de pagamento e parcelas |
-#
-# - Chaves substitutas `_key` BIGINT por `xxhash64` da chave natural: estáveis entre cargas, sem tabela de mapeamento.
+# # - Chaves substitutas `_key` BIGINT por `xxhash64` da chave natural: estáveis entre cargas, sem tabela de mapeamento.
 #   Colisão é conferida a cada execução (`assert_unique`).
 # - Membro desconhecido `-1` em toda dimensão; FK sem correspondência aponta para ele, nunca fica nula.
 #   Exceção: chaves de data opcionais (entrega, aprovação) ficam nulas para manter o calendário contínuo (ver ADR 0002).
@@ -383,8 +380,7 @@ fact_payment = (
 # MARKDOWN ********************
 
 # ## Testes antes de publicar
-#
-# Nada é gravado se a Gold não fechar com a Silver: integridade referencial (zero órfãos) e reconciliação de totais.
+# # Nada é gravado se a Gold não fechar com a Silver: integridade referencial (zero órfãos) e reconciliação de totais.
 
 # CELL ********************
 

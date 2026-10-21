@@ -28,8 +28,8 @@ table Calendário
 	column Trimestre
 		dataType: string
 		summarizeBy: none
-		sortByColumn: 'Trimestre Número'
 		sourceColumn: quarter_name
+		sortByColumn: 'Trimestre Número'
 
 	column 'Trimestre Número'
 		dataType: int64
@@ -42,15 +42,15 @@ table Calendário
 	column Mês
 		dataType: string
 		summarizeBy: none
-		sortByColumn: 'Mês Número'
 		sourceColumn: month_name
+		sortByColumn: 'Mês Número'
 
 	/// Nome do mês abreviado (Jan a Dez).
 	column 'Mês Abreviado'
 		dataType: string
 		summarizeBy: none
-		sortByColumn: 'Mês Número'
 		sourceColumn: month_short_name
+		sortByColumn: 'Mês Número'
 
 	column 'Mês Número'
 		dataType: int64
@@ -60,11 +60,11 @@ table Calendário
 		sourceColumn: month_number
 
 	/// Mês e ano para eixos de série temporal (ex.: jan/2018).
-	column 'Ano-Mês'
+	column Ano-Mês
 		dataType: string
 		summarizeBy: none
-		sortByColumn: 'Ano-Mês Número'
 		sourceColumn: year_month_name
+		sortByColumn: 'Ano-Mês Número'
 
 	column 'Ano-Mês Número'
 		dataType: int64
@@ -77,8 +77,8 @@ table Calendário
 	column 'Dia da Semana'
 		dataType: string
 		summarizeBy: none
-		sortByColumn: 'Dia da Semana Número'
 		sourceColumn: weekday_name
+		sortByColumn: 'Dia da Semana Número'
 
 	column 'Dia da Semana Número'
 		dataType: int64

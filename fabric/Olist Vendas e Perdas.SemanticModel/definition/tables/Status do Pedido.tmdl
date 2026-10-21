@@ -18,8 +18,8 @@ table 'Status do Pedido'
 	column 'Status do Pedido'
 		dataType: string
 		summarizeBy: none
-		sortByColumn: 'Ordem do Status'
 		sourceColumn: order_status_name
+		sortByColumn: 'Ordem do Status'
 
 	/// Agrupamento do status: Concluído, Em andamento ou Perdido. "Perdido" é a base das medidas de perda (receita e pedidos perdidos).
 	column 'Grupo do Status'

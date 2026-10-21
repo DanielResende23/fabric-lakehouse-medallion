@@ -12,10 +12,8 @@
 # MARKDOWN ********************
 
 # # nb_silver_load_commercial
-#
-# Bronze (`lh_bronze.olist.*`, texto bruto) → Silver (`lh_silver.commercial.*`, limpo e tipado).
-#
-# | Silver | Origem Bronze | Chave natural | Tratamentos principais |
+# # Bronze (`lh_bronze.olist.*`, texto bruto) → Silver (`lh_silver.commercial.*`, limpo e tipado).
+# # | Silver | Origem Bronze | Chave natural | Tratamentos principais |
 # |---|---|---|---|
 # | `customer` | `customers` | `customer_id` | CEP com 5 dígitos, cidade normalizada, UF maiúscula |
 # | `seller` | `sellers` | `seller_id` | idem |
@@ -25,8 +23,7 @@
 # | `order_payment` | `order_payments` | `order_id`, `payment_sequential` | domínio de forma de pagamento |
 # | `order_review` | `order_reviews` | `order_id` | **uma avaliação por pedido** (a respondida por último) |
 # | `zip_code_location` | `geolocation` | `zip_code_prefix` | 1 linha por CEP (média de lat/long), coordenadas fora do Brasil em quarentena |
-#
-# Tipos: valores `DECIMAL(18,4)` (18 e não 19 dígitos: limite do tipo Decimal do modelo Direct Lake), instantes `TIMESTAMP` (`_ts`), datas `DATE` (`_date`).
+# # Tipos: valores `DECIMAL(18,4)` (18 e não 19 dígitos: limite do tipo Decimal do modelo Direct Lake), instantes `TIMESTAMP` (`_ts`), datas `DATE` (`_date`).
 
 # PARAMETERS CELL ********************
 
@@ -304,8 +301,7 @@ publish(zip_code_location, "zip_code_location", ["zip_code_prefix"], [
 # MARKDOWN ********************
 
 # ## Integridade entre entidades (aviso)
-#
-# Órfãos não bloqueiam a Silver: a Gold aponta para o membro desconhecido (`-1`). Aqui só medimos.
+# # Órfãos não bloqueiam a Silver: a Gold aponta para o membro desconhecido (`-1`). Aqui só medimos.
 
 # CELL ********************
 

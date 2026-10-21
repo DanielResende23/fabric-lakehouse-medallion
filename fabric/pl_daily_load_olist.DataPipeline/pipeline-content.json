@@ -3,16 +3,7 @@
     "description": "Carga diária Olist: Bronze -> Silver -> Gold -> framing do modelo Direct Lake. O RunId do pipeline é o batch_id de todas as camadas.",
     "activities": [
       {
-        "name": "Bronze - Ingerir CSVs",
         "type": "TridentNotebook",
-        "dependsOn": [],
-        "policy": {
-          "timeout": "0.01:00:00",
-          "retry": 1,
-          "retryIntervalInSeconds": 60,
-          "secureOutput": false,
-          "secureInput": false
-        },
         "typeProperties": {
           "notebookId": "9f96094e-f66a-4cef-8689-a969839e0bf0",
           "workspaceId": "00000000-0000-0000-0000-000000000000",
@@ -25,24 +16,19 @@
               "type": "string"
             }
           }
-        }
-      },
-      {
-        "name": "Silver - Limpar e validar",
-        "type": "TridentNotebook",
-        "dependsOn": [
-          {
-            "activity": "Bronze - Ingerir CSVs",
-            "dependencyConditions": ["Succeeded"]
-          }
-        ],
+        },
         "policy": {
           "timeout": "0.01:00:00",
           "retry": 1,
           "retryIntervalInSeconds": 60,
-          "secureOutput": false,
-          "secureInput": false
+          "secureInput": false,
+          "secureOutput": false
         },
+        "name": "Bronze - Ingerir CSVs",
+        "dependsOn": []
+      },
+      {
+        "type": "TridentNotebook",
         "typeProperties": {
           "notebookId": "e15a5d57-c860-4b22-a623-f1be149978aa",
           "workspaceId": "00000000-0000-0000-0000-000000000000",
@@ -55,24 +41,26 @@
               "type": "string"
             }
           }
-        }
-      },
-      {
-        "name": "Gold - Montar star schema",
-        "type": "TridentNotebook",
-        "dependsOn": [
-          {
-            "activity": "Silver - Limpar e validar",
-            "dependencyConditions": ["Succeeded"]
-          }
-        ],
+        },
         "policy": {
           "timeout": "0.01:00:00",
           "retry": 1,
           "retryIntervalInSeconds": 60,
-          "secureOutput": false,
-          "secureInput": false
+          "secureInput": false,
+          "secureOutput": false
         },
+        "name": "Silver - Limpar e validar",
+        "dependsOn": [
+          {
+            "activity": "Bronze - Ingerir CSVs",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "TridentNotebook",
         "typeProperties": {
           "notebookId": "75fecdfb-3922-411c-832f-bfe2272a7a9e",
           "workspaceId": "00000000-0000-0000-0000-000000000000",
@@ -85,24 +73,26 @@
               "type": "string"
             }
           }
-        }
-      },
-      {
-        "name": "Modelo - Rebind e framing",
-        "type": "TridentNotebook",
+        },
+        "policy": {
+          "timeout": "0.01:00:00",
+          "retry": 1,
+          "retryIntervalInSeconds": 60,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Gold - Montar star schema",
         "dependsOn": [
           {
-            "activity": "Gold - Montar star schema",
-            "dependencyConditions": ["Succeeded"]
+            "activity": "Silver - Limpar e validar",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
           }
-        ],
-        "policy": {
-          "timeout": "0.00:30:00",
-          "retry": 0,
-          "retryIntervalInSeconds": 30,
-          "secureOutput": false,
-          "secureInput": false
-        },
+        ]
+      },
+      {
+        "type": "TridentNotebook",
         "typeProperties": {
           "notebookId": "9677a8df-3184-4246-ba52-203f89bb2be7",
           "workspaceId": "00000000-0000-0000-0000-000000000000",
@@ -115,7 +105,23 @@
               "type": "string"
             }
           }
-        }
+        },
+        "policy": {
+          "timeout": "0.00:30:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Modelo - Rebind e framing",
+        "dependsOn": [
+          {
+            "activity": "Gold - Montar star schema",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
       }
     ]
   }

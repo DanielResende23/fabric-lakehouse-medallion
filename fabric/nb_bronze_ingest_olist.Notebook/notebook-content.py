@@ -12,11 +12,9 @@
 # MARKDOWN ********************
 
 # # nb_bronze_ingest_olist
-#
-# Lê os 9 CSVs do [Brazilian E-Commerce Public Dataset by Olist](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
+# # Lê os 9 CSVs do [Brazilian E-Commerce Public Dataset by Olist](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
 # de `lh_bronze/Files/landing/olist/` e grava uma tabela Delta por arquivo em `lh_bronze.olist.<entidade>`.
-#
-# Regras da Bronze:
+# # Regras da Bronze:
 # - **Fiel à origem**: todas as colunas como `string`, nomes da origem, nenhuma linha descartada.
 # - **Snapshot por lote**: cada execução acrescenta o lote inteiro, particionado por `dp_ingestion_date`.
 #   Reexecutar o mesmo `batch_id` substitui só aquele lote (`replaceWhere`), então a carga é idempotente.
@@ -89,8 +87,7 @@ print(f"batch_id = {batch_id}")
 # MARKDOWN ********************
 
 # ## Opcional: baixar do Kaggle
-#
-# O dataset tem licença CC BY-NC-SA 4.0 e **não é versionado neste repositório**. O caminho padrão é subir os CSVs
+# # O dataset tem licença CC BY-NC-SA 4.0 e **não é versionado neste repositório**. O caminho padrão é subir os CSVs
 # para `Files/landing/olist/` pela interface do lakehouse ou pelo OneLake file explorer. Com `download_from_kaggle = True`,
 # o notebook busca as credenciais no Azure Key Vault (nunca em texto no código) e baixa o ZIP pela API do Kaggle.
 

@@ -18,8 +18,8 @@ table 'Forma de Pagamento'
 	column 'Forma de Pagamento'
 		dataType: string
 		summarizeBy: none
-		sortByColumn: 'Ordem da Forma de Pagamento'
 		sourceColumn: payment_type_name
+		sortByColumn: 'Ordem da Forma de Pagamento'
 
 	column 'Ordem da Forma de Pagamento'
 		dataType: int64

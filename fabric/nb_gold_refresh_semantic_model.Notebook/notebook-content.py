@@ -12,17 +12,14 @@
 # MARKDOWN ********************
 
 # # nb_gold_refresh_semantic_model
-#
-# Último passo do pipeline. Duas tarefas:
-#
-# 1. **Rebind**: garante que a expressão `OneLake_Gold` do modelo aponte para o `lh_gold` **deste** workspace.
+# # Último passo do pipeline. Duas tarefas:
+# # 1. **Rebind**: garante que a expressão `OneLake_Gold` do modelo aponte para o `lh_gold` **deste** workspace.
 #    O TMDL versionado no Git guarda IDs de exemplo; depois de um sync do Git ou de um deploy para TST/PRD,
 #    este passo corrige o endereço sem edição manual.
 # 2. **Framing**: refresh do modelo Direct Lake. É uma operação de metadados (não copia dados) que aponta o modelo
 #    para a versão mais recente das tabelas Delta. Atualizações automáticas ficam desligadas no modelo para que o
 #    usuário nunca veja uma Gold carregada pela metade.
-#
-# Usa Semantic Link (`sempy`), pré-instalado no runtime do Fabric.
+# # Usa Semantic Link (`sempy`), pré-instalado no runtime do Fabric.
 
 # PARAMETERS CELL ********************
 
