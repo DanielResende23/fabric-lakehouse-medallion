@@ -197,7 +197,17 @@ Primeira execução completa em uma capacidade Fabric trial (workspace conectado
 
 ![Execução do pipeline](docs/img/02-pipeline-run.jpg)
 
-Outras capturas previstas estão listadas no [README da pasta](docs/img/README.md).
+**Linhagem do workspace**: `lh_gold` → modelo Direct Lake → relatório, com o workspace sincronizado com a branch `main`.
+
+![Linhagem do workspace](docs/img/01-workspace-lineage.jpg)
+
+**`lh_gold` com schemas** `commercial` (dimensões e fatos) e `shared` (`dim_date`), gravados pelos notebooks por caminho OneLake.
+
+![Schemas do lh_gold](docs/img/03-lakehouse-schemas.jpg)
+
+**Modelo semântico** em star schema: três fatos (Vendas, Pedidos, Pagamentos) e dimensões conformadas, com chaves técnicas ocultas.
+
+![Modelo semântico](docs/img/04-semantic-model.jpg)
 
 ## Stack
 

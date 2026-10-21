@@ -17,6 +17,15 @@
         }
       }
     },
+    "objects": {
+      "labels": [
+        {
+          "properties": {
+            "fontSize": { "expr": { "Literal": { "Value": "24D" } } }
+          }
+        }
+      ]
+    },
     "drillFilterOtherVisuals": true
   }
 }
