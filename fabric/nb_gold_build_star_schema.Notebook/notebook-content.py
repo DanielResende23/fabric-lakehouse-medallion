@@ -400,7 +400,7 @@ for fact, fact_name in [(fact_sales, "fact_sales"), (fact_order, "fact_order"), 
         if key in fact.columns:
             assert_no_orphans(fact, dim, key, fact_name, dim_name)
     for key in [c for c in fact.columns if c.endswith("date_key")]:
-        assert_no_orphans(fact, dim_date.select("date_key"), key, fact_name, "dim_date")
+        assert_no_orphans(fact, dim_date.select(F.col("date_key").alias(key)), key, fact_name, "dim_date")
 
 reconciliation = [
     ("fact_order rows = sales_order rows", fact_order.count(), orders.count()),
