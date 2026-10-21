@@ -1,0 +1,52 @@
+{
+  "name": "Portfolio Daniel Resende",
+  "dataColors": ["#17C7B8", "#FF8A3D", "#06111A", "#5B7083", "#9FB3C2", "#39E5D6", "#C7D3DB", "#FFB98A"],
+  "background": "#FFFFFF",
+  "foreground": "#06111A",
+  "tableAccent": "#17C7B8",
+  "good": "#17C7B8",
+  "neutral": "#9FB3C2",
+  "bad": "#FF8A3D",
+  "maximum": "#17C7B8",
+  "center": "#C7D3DB",
+  "minimum": "#FF8A3D",
+  "textClasses": {
+    "title": { "fontFace": "Segoe UI Semibold", "fontSize": 13, "color": "#06111A" },
+    "header": { "fontFace": "Segoe UI Semibold", "fontSize": 12, "color": "#06111A" },
+    "label": { "fontFace": "Segoe UI", "fontSize": 10, "color": "#5B7083" },
+    "callout": { "fontFace": "Segoe UI Semibold", "fontSize": 30, "color": "#06111A" }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "background": [{ "show": true, "color": { "solid": { "color": "#FFFFFF" } }, "transparency": 0 }],
+        "border": [{ "show": true, "color": { "solid": { "color": "#E3E9EE" } }, "radius": 10 }],
+        "dropShadow": [{ "show": false }],
+        "padding": [{ "top": 12, "bottom": 12, "left": 16, "right": 16 }],
+        "title": [{ "show": true, "fontColor": { "solid": { "color": "#06111A" } }, "fontSize": 13, "fontFamily": "Segoe UI Semibold" }],
+        "subTitle": [{ "show": true, "fontColor": { "solid": { "color": "#5B7083" } }, "fontSize": 10 }],
+        "categoryAxis": [{ "gridlineShow": false, "labelColor": { "solid": { "color": "#5B7083" } }, "titleColor": { "solid": { "color": "#5B7083" } } }],
+        "valueAxis": [{ "gridlineColor": { "solid": { "color": "#EEF2F5" } }, "labelColor": { "solid": { "color": "#5B7083" } }, "titleColor": { "solid": { "color": "#5B7083" } } }],
+        "legend": [{ "labelColor": { "solid": { "color": "#5B7083" } } }]
+      }
+    },
+    "page": {
+      "*": {
+        "background": [{ "color": { "solid": { "color": "#F4F7F9" } }, "transparency": 0 }],
+        "outspace": [{ "color": { "solid": { "color": "#F4F7F9" } }, "transparency": 0 }]
+      }
+    },
+    "card": {
+      "*": {
+        "labels": [{ "fontSize": 30, "color": { "solid": { "color": "#06111A" } } }],
+        "categoryLabels": [{ "show": true, "fontSize": 11, "color": { "solid": { "color": "#5B7083" } } }]
+      }
+    },
+    "textbox": {
+      "*": {
+        "border": [{ "show": false }],
+        "padding": [{ "top": 0, "bottom": 0, "left": 0, "right": 0 }]
+      }
+    }
+  }
+}

@@ -1,7 +1,14 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "c0a1000000000000card5",
-  "position": { "x": 1024, "y": 16, "z": 5000, "width": 240, "height": 110, "tabOrder": 5000 },
+  "position": {
+    "x": 1528,
+    "y": 144,
+    "width": 348,
+    "height": 150,
+    "z": 1400,
+    "tabOrder": 1400
+  },
   "visual": {
     "visualType": "card",
     "query": {
@@ -9,7 +16,16 @@
         "Values": {
           "projections": [
             {
-              "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "Pedidos" } }, "Property": "Nota Média de Avaliação" } },
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Pedidos"
+                    }
+                  },
+                  "Property": "Nota Média de Avaliação"
+                }
+              },
               "queryRef": "Pedidos.Nota Média de Avaliação",
               "nativeQueryRef": "Nota Média de Avaliação"
             }
@@ -21,7 +37,13 @@
       "labels": [
         {
           "properties": {
-            "fontSize": { "expr": { "Literal": { "Value": "24D" } } }
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "30D"
+                }
+              }
+            }
           }
         }
       ]

@@ -1,7 +1,14 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "c0a1000000000000card4",
-  "position": { "x": 772, "y": 16, "z": 4000, "width": 236, "height": 110, "tabOrder": 4000 },
+  "position": {
+    "x": 1156,
+    "y": 144,
+    "width": 348,
+    "height": 150,
+    "z": 1300,
+    "tabOrder": 1300
+  },
   "visual": {
     "visualType": "card",
     "query": {
@@ -9,7 +16,16 @@
         "Values": {
           "projections": [
             {
-              "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "Pedidos" } }, "Property": "% Pedidos Atrasados" } },
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Pedidos"
+                    }
+                  },
+                  "Property": "% Pedidos Atrasados"
+                }
+              },
               "queryRef": "Pedidos.% Pedidos Atrasados",
               "nativeQueryRef": "% Pedidos Atrasados"
             }
@@ -21,7 +37,24 @@
       "labels": [
         {
           "properties": {
-            "fontSize": { "expr": { "Literal": { "Value": "24D" } } }
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "30D"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FF8A3D'"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       ]

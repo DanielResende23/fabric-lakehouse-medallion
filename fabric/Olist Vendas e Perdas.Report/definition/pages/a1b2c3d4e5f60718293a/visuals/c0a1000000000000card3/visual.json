@@ -1,7 +1,14 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "c0a1000000000000card3",
-  "position": { "x": 520, "y": 16, "z": 3000, "width": 236, "height": 110, "tabOrder": 3000 },
+  "position": {
+    "x": 784,
+    "y": 144,
+    "width": 348,
+    "height": 150,
+    "z": 1200,
+    "tabOrder": 1200
+  },
   "visual": {
     "visualType": "card",
     "query": {
@@ -9,7 +16,16 @@
         "Values": {
           "projections": [
             {
-              "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "Vendas" } }, "Property": "% Receita Perdida" } },
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Vendas"
+                    }
+                  },
+                  "Property": "% Receita Perdida"
+                }
+              },
               "queryRef": "Vendas.% Receita Perdida",
               "nativeQueryRef": "% Receita Perdida"
             }
@@ -21,7 +37,24 @@
       "labels": [
         {
           "properties": {
-            "fontSize": { "expr": { "Literal": { "Value": "24D" } } }
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "30D"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FF8A3D'"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       ]

@@ -1,7 +1,14 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "c0a1000000000000card2",
-  "position": { "x": 268, "y": 16, "z": 2000, "width": 236, "height": 110, "tabOrder": 2000 },
+  "position": {
+    "x": 412,
+    "y": 144,
+    "width": 348,
+    "height": 150,
+    "z": 1100,
+    "tabOrder": 1100
+  },
   "visual": {
     "visualType": "card",
     "query": {
@@ -9,7 +16,16 @@
         "Values": {
           "projections": [
             {
-              "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "Vendas" } }, "Property": "Receita Perdida" } },
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Vendas"
+                    }
+                  },
+                  "Property": "Receita Perdida"
+                }
+              },
               "queryRef": "Vendas.Receita Perdida",
               "nativeQueryRef": "Receita Perdida"
             }
@@ -21,9 +37,38 @@
       "labels": [
         {
           "properties": {
-            "labelDisplayUnits": { "expr": { "Literal": { "Value": "1000D" } } },
-            "labelPrecision": { "expr": { "Literal": { "Value": "1L" } } },
-            "fontSize": { "expr": { "Literal": { "Value": "24D" } } }
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "30D"
+                }
+              }
+            },
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1000D"
+                }
+              }
+            },
+            "labelPrecision": {
+              "expr": {
+                "Literal": {
+                  "Value": "1L"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FF8A3D'"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       ]

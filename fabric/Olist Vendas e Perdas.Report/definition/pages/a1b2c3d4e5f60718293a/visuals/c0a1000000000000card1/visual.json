@@ -1,7 +1,14 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "c0a1000000000000card1",
-  "position": { "x": 16, "y": 16, "z": 1000, "width": 236, "height": 110, "tabOrder": 1000 },
+  "position": {
+    "x": 40,
+    "y": 144,
+    "width": 348,
+    "height": 150,
+    "z": 1000,
+    "tabOrder": 1000
+  },
   "visual": {
     "visualType": "card",
     "query": {
@@ -9,7 +16,16 @@
         "Values": {
           "projections": [
             {
-              "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "Vendas" } }, "Property": "Receita Bruta" } },
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Vendas"
+                    }
+                  },
+                  "Property": "Receita Bruta"
+                }
+              },
               "queryRef": "Vendas.Receita Bruta",
               "nativeQueryRef": "Receita Bruta"
             }
@@ -21,9 +37,27 @@
       "labels": [
         {
           "properties": {
-            "labelDisplayUnits": { "expr": { "Literal": { "Value": "1000000D" } } },
-            "labelPrecision": { "expr": { "Literal": { "Value": "1L" } } },
-            "fontSize": { "expr": { "Literal": { "Value": "24D" } } }
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "30D"
+                }
+              }
+            },
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1000000D"
+                }
+              }
+            },
+            "labelPrecision": {
+              "expr": {
+                "Literal": {
+                  "Value": "1L"
+                }
+              }
+            }
           }
         }
       ]

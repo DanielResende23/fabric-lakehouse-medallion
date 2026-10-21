@@ -1,7 +1,14 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "c0a100000000000col01",
-  "position": { "x": 428, "y": 438, "z": 9000, "width": 400, "height": 266, "tabOrder": 9000 },
+  "position": {
+    "x": 608,
+    "y": 702,
+    "width": 544,
+    "height": 338,
+    "z": 5000,
+    "tabOrder": 5000
+  },
   "visual": {
     "visualType": "clusteredColumnChart",
     "query": {
@@ -9,12 +16,30 @@
         "Y": {
           "projections": [
             {
-              "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "Pedidos" } }, "Property": "Nota Média - Entrega no Prazo" } },
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Pedidos"
+                    }
+                  },
+                  "Property": "Nota Média - Entrega no Prazo"
+                }
+              },
               "queryRef": "Pedidos.Nota Média - Entrega no Prazo",
               "nativeQueryRef": "Nota Média - Entrega no Prazo"
             },
             {
-              "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "Pedidos" } }, "Property": "Nota Média - Entrega Atrasada" } },
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Pedidos"
+                    }
+                  },
+                  "Property": "Nota Média - Entrega Atrasada"
+                }
+              },
               "queryRef": "Pedidos.Nota Média - Entrega Atrasada",
               "nativeQueryRef": "Nota Média - Entrega Atrasada"
             }
@@ -22,11 +47,106 @@
         }
       }
     },
+    "objects": {
+      "labels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "labelPrecision": {
+              "expr": {
+                "Literal": {
+                  "Value": "1L"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "14D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "legend": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "position": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Top'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "valueAxis": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
     "visualContainerObjects": {
       "title": [
         {
           "properties": {
-            "text": { "expr": { "Literal": { "Value": "'Nota média: entrega no prazo x atrasada'" } } }
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Entrega atrasada derruba a nota do cliente'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Nota média de avaliação (1 a 5): pedidos entregues no prazo x com atraso'"
+                }
+              }
+            }
           }
         }
       ]
