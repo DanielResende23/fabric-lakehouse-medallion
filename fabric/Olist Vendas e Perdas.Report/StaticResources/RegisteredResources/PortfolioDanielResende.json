@@ -25,8 +25,8 @@
         "padding": [{ "top": 12, "bottom": 12, "left": 16, "right": 16 }],
         "title": [{ "show": true, "fontColor": { "solid": { "color": "#06111A" } }, "fontSize": 13, "fontFamily": "Segoe UI Semibold" }],
         "subTitle": [{ "show": true, "fontColor": { "solid": { "color": "#5B7083" } }, "fontSize": 10 }],
-        "categoryAxis": [{ "gridlineShow": false, "labelColor": { "solid": { "color": "#5B7083" } }, "titleColor": { "solid": { "color": "#5B7083" } } }],
-        "valueAxis": [{ "gridlineColor": { "solid": { "color": "#EEF2F5" } }, "labelColor": { "solid": { "color": "#5B7083" } }, "titleColor": { "solid": { "color": "#5B7083" } } }],
+        "categoryAxis": [{ "showAxisTitle": false, "gridlineShow": false, "labelColor": { "solid": { "color": "#5B7083" } } }],
+        "valueAxis": [{ "showAxisTitle": false, "secShowAxisTitle": false, "gridlineColor": { "solid": { "color": "#EEF2F5" } }, "labelColor": { "solid": { "color": "#5B7083" } } }],
         "legend": [{ "labelColor": { "solid": { "color": "#5B7083" } } }]
       }
     },
